@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Static Site to GitHub Pages
 
 on:
   push:
@@ -11,17 +11,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Export Game
-        uses: abarichello/godot-export@v1.2.0
-        with:
-          godot_version: '4.2.1'
-          export_preset: 'Web'
-          export_path: 'export/web'
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./export/web
+          # This should be the directory where the static files are located.
+          # In our case, it's the root of the repository.
+          publish_dir: ./
           # This will create a clean gh-pages branch, removing old files
           force_orphan: true
